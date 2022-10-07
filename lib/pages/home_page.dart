@@ -20,13 +20,15 @@ class _HomePageState extends State<HomePage> {
   String joohomin_jazz = 'assets/audio/joohomin_jazz.mp3';
   String joohomin_jazz_remix = 'assets/audio/joohomin_jazz_remix.mp3';
 
-  // Audio Player 인스턴스 생성
-  final audio_player = AudioPlayer();
+  // Audio Player
+  final audioPlayer = AudioPlayer();
 
-  // Initiate the audio into the Player
-  // void initPlayer(){
-  //   await audio_player.setSource(AssetSource(path))
-  // }
+  @override
+  void initState(){
+    super.initState();
+    audioPlayer;
+
+  }
 
   @override
   Widget build(BuildContext context) {
