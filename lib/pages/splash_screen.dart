@@ -15,7 +15,6 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: AnimatedSplashScreen(
-      duration: 2500,
       splashIconSize: 350,
       backgroundColor: Colors.black,
       splashTransition: SplashTransition.fadeTransition,
@@ -30,9 +29,9 @@ class _SplashScreenState extends State<SplashScreen> {
             height: 20,
           ),
           Text('재즈가 뭐라고\n생각하세요?',
-              textAlign: TextAlign.center,
+              textAlign: TextAlign.start,
               style: TextStyle(
-                  fontSize: 40,
+                  fontSize: 35,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
                   letterSpacing: 3,))

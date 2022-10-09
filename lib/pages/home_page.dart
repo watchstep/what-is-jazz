@@ -1,7 +1,5 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'dart:typed_data';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -16,23 +14,61 @@ class _HomePageState extends State<HomePage> {
   final background_color = Colors.grey[200];
   final skin_color = Color(0xFFF2C288);
 
-  // 주호민 재즈 음악 File Path
-  String joohomin_jazz = 'assets/audio/joohomin_jazz.mp3';
-  String joohomin_jazz_remix = 'assets/audio/joohomin_jazz_remix.mp3';
-
   // Audio Player
-  final audioPlayer = AudioPlayer();
+  AudioPlayer audioPlayer = AudioPlayer();
+  AudioCache audioCache =
+      AudioCache(prefix: 'assets/audio/joohomin_jazz_remix.mp3');
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     audioPlayer;
+    audioCache;
+  }
 
+  void pauseAudio() async {
+    await audioPlayer.pause();
+  }
+
+  void stopAudio() async {
+    await audioPlayer.stop();
+  }
+
+  void resumeAudio() async {
+    await audioPlayer.resume();
+  }
+
+  void playAudio() async {
+    await audioPlayer
+        .setSource(AssetSource('assets/audio/joohomin_jazz_remix.mp3'));
+    // audioPlayer.play();
+  }
+
+  void changeVolume(double value) {
+    audioPlayer.setVolume(value);
+  }
+
+  @override
+  void dispose(){
+    super.dispose();
+    audioPlayer.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    // final size = MediaQuery.of(context).size;
+    late String _total_duration;
+    late String _current_postion;
+    audioPlayer.getDuration().then((value){
+      setState(() {
+        _total_duration = value.toString();
+      });
+    });
+    audioPlayer.getCurrentPosition().then((value){
+      setState(() {
+        _current_postion = value.toString();
+      });
+    });
     return Scaffold(
       // extendBodyBehindAppBar: true,
       backgroundColor: Colors.black87,
@@ -44,13 +80,37 @@ class _HomePageState extends State<HomePage> {
       //     color: Colors.white60,
       //   ),
       // ),
+      appBar: PreferredSize(
+        preferredSize: Size.zero,
+        child: Container(
+            alignment: Alignment.topLeft,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton(
+                    padding: EdgeInsets.fromLTRB(30, 45, 0, 0),
+                    onPressed: () {},
+                    icon: Icon(
+                      FontAwesomeIcons.chevronDown,
+                      color: Colors.white,
+                    )),
+                IconButton(
+                    padding: EdgeInsets.fromLTRB(0, 45, 30, 0),
+                    onPressed: () {},
+                    icon: Icon(
+                      FontAwesomeIcons.volumeLow,
+                      color: Colors.white,
+                    ))
+              ],
+            )),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Center(
             child: Column(
               children: [
                 const SizedBox(
-                  height: 40,
+                  height: 70,
                 ),
                 Stack(
                   alignment: Alignment.center,
@@ -111,7 +171,9 @@ class _HomePageState extends State<HomePage> {
                     inactiveColor: Colors.white,
                   ),
                 ),
-                const SizedBox(height: 30,),
+                const SizedBox(
+                  height: 30,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -120,19 +182,19 @@ class _HomePageState extends State<HomePage> {
                       padding: EdgeInsets.zero,
                       onPressed: () {},
                       icon: FaIcon(FontAwesomeIcons.backward,
-                          color: Colors.white, size: 30),
+                          color: Colors.white, size: 25),
                     ),
                     IconButton(
                       padding: EdgeInsets.symmetric(horizontal: 65),
-                      onPressed: () {},
+                      onPressed: playAudio,
                       icon: FaIcon(FontAwesomeIcons.play,
-                          color: Colors.white, size: 50),
+                          color: Colors.white, size: 40),
                     ),
                     IconButton(
                         padding: EdgeInsets.zero,
                         onPressed: () {},
                         icon: FaIcon(FontAwesomeIcons.forward,
-                            color: Colors.white, size: 30))
+                            color: Colors.white, size: 25))
                   ],
                 )
               ],
