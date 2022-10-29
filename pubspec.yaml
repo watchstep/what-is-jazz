@@ -38,6 +38,7 @@ dependencies:
   lottie: ^1.4.3
   audioplayers: ^1.1.0
   font_awesome_flutter: ^10.2.1
+  assets_audio_player: ^3.0.5
 
 dev_dependencies:
   flutter_test:
