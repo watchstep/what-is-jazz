@@ -2,6 +2,7 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:what_is_jazz/pages/home_page.dart';
+import 'package:what_is_jazz/pages/player_page.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -29,10 +30,11 @@ class _SplashScreenState extends State<SplashScreen> {
           const SizedBox(
             height: 20,
           ),
-          Text('재즈가 뭐라고 생각하세요?',
+          Text('What is Jazz?',
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 25,
+                fontFamily: 'Cheria',
+                fontSize: 40,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
                 letterSpacing: 3,
